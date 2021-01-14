@@ -19,3 +19,7 @@ CREATE TABLE `users` (
   `update` DATETIME NULL,
   `counter` INT NULL,
   PRIMARY KEY (`id`));
+
+
+## Start App
+php -S localhost:8000

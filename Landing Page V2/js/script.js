@@ -5,6 +5,7 @@ const email = document.getElementById('email')
 const birth = document.getElementById('birth')
 const phone = document.getElementById('phone')
 const country = document.getElementById('country')
+const question = document.getElementById('question')
 
 const submit = document.getElementById('submit')
 
@@ -16,6 +17,7 @@ const lastnameInfo = document.getElementById('lastnameInfo')
 const birthInfo = document.getElementById('birthInfo')
 const phoneInfo = document.getElementById('phoneInfo')
 const countryInfo = document.getElementById('countryInfo')
+const questionInfo = document.getElementById('questionInfo')
 
 /**
  *  info combine all comformity checked
@@ -38,6 +40,30 @@ let info = {
  */
 
 
+ /**
+ * 
+ *  check Question validity
+ */
+question.addEventListener('keyup', () => {
+    if (validateQuestion(question.value)) {
+        questionInfo.innerText = ""
+        question.style.background = "rgb(181, 255, 121)"
+        info.question = true
+    } else {
+        questionInfo.innerText = "Enter at least 15 characters"
+        question.style.background = "rgb(252, 134, 134)"
+        info.question = false
+    }
+})
+
+function validateQuestion(value) {
+    if (value.length >= 15) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 
 /**
@@ -46,12 +72,12 @@ let info = {
  */
 email.addEventListener('keyup', () => {
     if (validateEmail(email.value)) {
-        emailInfo.innerText = "Email ok"
-        emailInfo.style.color = "green"
+        emailInfo.innerText = ""
+        email.style.background = "rgb(181, 255, 121)"
         info.email = true
     } else {
         emailInfo.innerText = "Incorrect email address"
-        emailInfo.style.color = "red"
+        email.style.background = "rgb(252, 134, 134)"
         info.email = false
     }
 })
@@ -70,24 +96,26 @@ function validateEmail(value) {
  */
 firstname.addEventListener('keyup', () => {
     if (validateName(firstname.value)) {
-        firstnameInfo.innerText = "Firstname ok"
-        firstnameInfo.style.color = "green"
+        firstnameInfo.innerText = ""
+        firstname.style.background = "rgb(181, 255, 121)"
         info.firstname = true
     } else {
         firstnameInfo.innerText = "Incorrect firstname"
         firstnameInfo.style.color = "red"
+        firstname.style.background = "rgb(252, 134, 134)"
         info.firstname = false
     }
 })
 
 lastname.addEventListener('keyup', () => {
     if (validateName(lastname.value)) {
-        lastnameInfo.innerText = "Lastname ok"
-        lastnameInfo.style.color = "green"
+        lastnameInfo.innerText = ""
+        lastname.style.background = "rgb(181, 255, 121)"
         info.lastname = true
     } else {
         lastnameInfo.innerText = "Incorrect Lastname"
         lastnameInfo.style.color = "red"
+        lastname.style.background = "rgb(252, 134, 134)"
         info.lastname = false
     }
 })

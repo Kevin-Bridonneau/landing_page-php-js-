@@ -15,7 +15,7 @@ session_start();
 
 <body>
     <div id="header">
-        <h1>Landing Page</h1>
+        <h1>Subscribe free and be a Hero !</h1>
     </div>
     <div id="form-container">
         <form action="router.php" method="post">
@@ -71,19 +71,21 @@ session_start();
                 <label for="country">Country :</label>
                 <input type="text" name="country" id="country" required>
             </div>
+            <div class="info-container">
+                <label for="country" id="countryInfo"></label>
+            </div>
             <div class="input-container">
                 <label for="question">Question :</label>
                 <textarea name="question" id="question" minlength="15" required></textarea>
             </div>
             <div class="info-container">
-                <label for="country" id="countryInfo"></label>
+                <label for="question" id="questionInfo"></label>
             </div>
             <div class="input-container">
                 <button id="submit">Submit</button>
             </div>
         </form>
     </div>
-    <div id="footer"></div>
 </body>
 
 </html>

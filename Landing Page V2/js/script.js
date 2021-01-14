@@ -1,7 +1,3 @@
-const BACKEND_HOST = 'localhost';
-const BACKEND_PORT = 8000;
-
-
 const firstname = document.getElementById('firstname')
 const lastname = document.getElementById('lastname')
 const genders = document.getElementsByName('gender')
@@ -32,56 +28,6 @@ let info = {
     "phone": false,
     "country": false
 }
-
-/**
- * 
- *  fetch to backend for create User
- * 
- */
-submit.addEventListener('click', () => {
-    if (info.firstname && info.lastname && info.email && info.birth && info.phone && info.country) {
-        generalInfo.innerText = "Form completed !"
-        generalInfo.style.color = "green"
-        let genderChecked;
-        for (var i = 0; i < genders.length; i++) {
-            if (genders[i].checked) {
-                genderChecked = genders[i].value;
-            }
-        }
-        const body = {
-            "firstname": firstname.value,
-            "lastname": lastname.value,
-            "type": genderChecked,
-            "email": email.value,
-            "birth": birth.value,
-            "phone": phone.value,
-            "country": country.value
-        }
-        fetch("http://" + BACKEND_HOST + ":" + BACKEND_PORT + "/api/user", {
-                "mode": 'no-cors',
-                "method": "POST",
-                "headers": {
-                    "Content-Type": "application/json",
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': 'true'
-                },
-                "body": JSON.stringify(body)
-            })
-            .then(response => {
-                console.log(response);
-            })
-            .catch(err => {
-                console.error(err);
-            });
-    }else{
-        generalInfo.innerText = "Error : Empty fieds of check message below fieds."
-        generalInfo.style.color = "red"
-    }
-
-})
-
-
-
 
 /**
  *                          *****************************
@@ -148,12 +94,13 @@ lastname.addEventListener('keyup', () => {
 
 country.addEventListener('keyup', () => {
     if (validateName(country.value)) {
-        countryInfo.innerText = "Country ok"
-        countryInfo.style.color = "green"
+        countryInfo.innerText = ""
+        country.style.background = "rgb(181, 255, 121)"
         info.country = true
     } else {
         countryInfo.innerText = "Incorrect country"
         countryInfo.style.color = "red"
+        country.style.background = "rgb(252, 134, 134)"
         info.country = false
     }
 })
@@ -172,12 +119,13 @@ function validateName(value) {
  */
 birth.addEventListener('change', () => {
     if (validateBirth(birth.value)) {
-        birthInfo.innerText = "You can subscribe"
-        birthInfo.style.color = "green"
+        birthInfo.innerText = ""
+        birth.style.background = "rgb(181, 255, 121)"
         info.birth = true
     } else {
-        birthInfo.innerText = "You cannot register if you are a minor"
+        birthInfo.innerText = "Adult only"
         birthInfo.style.color = "red"
+        birth.style.background = "rgb(252, 134, 134)"
         info.birth = false
     }
 })
@@ -203,12 +151,13 @@ function getAge(date) {
  */
 phone.addEventListener('keyup', () => {
     if (validatePhone(phone.value)) {
-        phoneInfo.innerText = "Phone ok"
-        phoneInfo.style.color = "green"
+        phoneInfo.innerText = ""
+        phone.style.background = "rgb(181, 255, 121)"
         info.phone = true
     } else {
-        phoneInfo.innerText = "You need a french number for subscrib"
+        phoneInfo.innerText = "French phone number only"
         phoneInfo.style.color = "red"
+        phone.style.background = "rgb(252, 134, 134)"
         info.phone = false
     }
 })

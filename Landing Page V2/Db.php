@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * 
+ * 
+ *  Database Connector
+ */
 class Db{
 
     private $_host = null;

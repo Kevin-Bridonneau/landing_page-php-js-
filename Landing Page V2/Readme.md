@@ -1,4 +1,4 @@
-# LANDING PAGE V1 : REST API IN PHP FROM SCRATCH AND VANILLA JS ON FRONT
+# LANDING PAGE V2 : 
 
 ## Mysql Database : 
 You can change the database config in /backend/config.php
@@ -19,9 +19,3 @@ CREATE TABLE `users` (
   `update` DATETIME NULL,
   `counter` INT NULL,
   PRIMARY KEY (`id`));
-## Start Backend
-Start local backend server
-  /backend> php -S localhost:8000
-
-## Open Frontend
-launch index.html

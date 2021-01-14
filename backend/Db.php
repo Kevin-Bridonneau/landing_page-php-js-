@@ -12,7 +12,7 @@ class Db{
     {
         $this->_host = $host;
         $this->_port = $port;
-        $this->_dbName   = $dbNameame;
+        $this->_dbName = $dbNameame;
         $this->_user = $user;
         $this->_pass = $pass;
     }

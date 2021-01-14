@@ -15,7 +15,7 @@ session_start();
 
 <body>
     <div id="header">
-        <h1>Subscribe free and be a Hero !</h1>
+        <h1>Subscribe for free and become a Hero !</h1>
     </div>
     <div id="form-container">
         <form action="router.php" method="post">

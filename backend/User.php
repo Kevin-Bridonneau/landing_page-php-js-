@@ -106,7 +106,7 @@ class User{
     }
 
     function validateName($name){
-        if(preg_match('/^[A-Z][A-Za-z\é\è\ê\-]+$/', $name, $matches, PREG_OFFSET_CAPTURE)){
+        if(preg_match('/^[a-zA-Z0-9_]{1,16}$/', $name, $matches, PREG_OFFSET_CAPTURE)){
             return true;
         }
         return false;

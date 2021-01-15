@@ -26,7 +26,10 @@ class User{
 
         if(!$this->checkBody($body)){
             http_response_code(400);
-            return json_encode(['msg'=>'Error : invalid credentials']);
+            header("Access-Control-Allow-Origin: *");
+            header('Content-Type: application/json');
+            echo json_encode(['msg'=>'Error : invalid credentials']);
+            exit();
         }
         else{
             $firstname = $body->firstname;
@@ -35,38 +38,56 @@ class User{
             $email = $body->email;
             $birth = $body->birth;
             $phone = $body->phone;
-            $country = $body->country;
+            $country = strtoupper($body->country);
         }
 
         $ip = $_SERVER['REMOTE_ADDR'];
         if(!$this->checkIp($ip)){
             http_response_code(400);
-            return json_encode(['msg'=>'Error spam detected: you have already created an acount in last 24h with this IP : '.$ip]);
+            header("Access-Control-Allow-Origin: *");
+            header('Content-Type: application/json');
+            echo json_encode(['msg'=>'Error spam detected: you have already created an acount in last 24h with this IP : '.$ip]);
+            exit();
         }
 
         if(!$this->validateEmail($email)){
             http_response_code(400);
-            return json_encode(['msg'=>'Error : invalid Email']);
+            header("Access-Control-Allow-Origin: *");
+            header('Content-Type: application/json');
+            echo json_encode(['msg'=>'Error : invalid Email']);
+            exit();
         }
 
         if(!$this->validateAge($birth)){
             http_response_code(400);
-            return json_encode(['msg'=>'Error : you cannot register if you are a minor.']);
+            header("Access-Control-Allow-Origin: *");
+            header('Content-Type: application/json');
+            echo json_encode(['msg'=>'Error : you cannot register if you are a minor.']);
+            exit();
         }
 
         if(!$this->validatePhone($phone)){
             http_response_code(400);
-            return json_encode(['msg'=>'Error : we need a french phone number.']);
+            header("Access-Control-Allow-Origin: *");
+            header('Content-Type: application/json');
+            echo json_encode(['msg'=>'Error : we need a french phone number.']);
+            exit();
         }
 
         if(!$this->validateName($firstname)){
             http_response_code(400);
-            return json_encode(['msg'=>'Error : invalid firstname.']);
+            header("Access-Control-Allow-Origin: *");
+            header('Content-Type: application/json');
+            echo json_encode(['msg'=>'Error : invalid firstname.']);
+            exit();
         }
 
         if(!$this->validateName($lastname)){
             http_response_code(400);
-            return json_encode(['msg'=>'Error : invalid lastname.']);
+            header("Access-Control-Allow-Origin: *");
+            header('Content-Type: application/json');
+            echo json_encode(['msg'=>'Error : invalid lastname.']);
+            exit();
         }
 
 
@@ -77,7 +98,10 @@ class User{
             $sql = "UPDATE users SET updateAt = NOW(),counter = $u WHERE email = '$email'";
             $db->exec($sql);
             http_response_code(200);
-            return json_encode(['msg'=>'User '.$firstname.' '.$lastname.' Updated !']);
+            header("Access-Control-Allow-Origin: *");
+            header('Content-Type: application/json');
+            echo json_encode(['msg'=>'User '.$firstname.' '.$lastname.' Updated !']);
+            exit();
         }
 
         $sql = "INSERT INTO users (firstname, lastname,type, email, birth, phone, country, IP, creatAt, updateAt,counter)
@@ -85,7 +109,10 @@ class User{
         $db->exec($sql);
 
         http_response_code(200);
-        return json_encode(['msg'=>'User '.$firstname.' '.$lastname.' created !']);
+        header("Access-Control-Allow-Origin: *");
+        header('Content-Type: application/json');
+        echo json_encode(['msg'=>'User '.$firstname.' '.$lastname.' created !']);
+        exit();
     }
 
     function userExist($email){

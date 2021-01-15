@@ -58,13 +58,12 @@ submit.addEventListener('click', () => {
             "country": country.value
         }
         fetch("http://" + BACKEND_HOST + ":" + BACKEND_PORT + "/api/user", {
-                "mode": 'no-cors',
-                "method": "POST",
-                "headers": {
-                    "Content-Type": "application/json",
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': 'true'
+                headers: {
+                    'Access-Control-Allow-Origin':'*',
+                    'Content-Type': 'application/json'
                 },
+                mode: "cors",
+                method: 'POST',
                 "body": JSON.stringify(body)
             })
             .then(response => {

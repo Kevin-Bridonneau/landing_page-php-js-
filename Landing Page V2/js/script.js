@@ -6,6 +6,7 @@ const birth = document.getElementById('birth')
 const phone = document.getElementById('phone')
 const country = document.getElementById('country')
 const question = document.getElementById('question')
+const sessionInfo = document.getElementById('sessionInfo')
 
 const submit = document.getElementById('submit')
 
@@ -19,6 +20,16 @@ const phoneInfo = document.getElementById('phoneInfo')
 const countryInfo = document.getElementById('countryInfo')
 const questionInfo = document.getElementById('questionInfo')
 
+
+/**
+ * 
+ * hidden Php Session message after 5sec
+ */
+setTimeout(() => {
+    sessionInfo.style.display = 'none';
+}, 5000);
+
+
 /**
  *  info combine all comformity checked
  */
@@ -28,8 +39,22 @@ let info = {
     "email": false,
     "birth": false,
     "phone": false,
-    "country": false
+    "country": false,
+    "question": false
 }
+
+ /**
+ * 
+ *  check Credentials validity
+ */
+async function checkCredentials(){
+    if(info.firstname && info.lastname && info.email && info.birth && info.phone && info.country && info.question){
+        submit.removeAttribute("disabled")
+    }
+}
+
+setInterval(checkCredentials,1000)
+
 
 /**
  *                          *****************************
@@ -57,7 +82,7 @@ question.addEventListener('keyup', () => {
 })
 
 function validateQuestion(value) {
-    if (value.length >= 15) {
+    if (value.length >= 15 && value.length <=250) {
         return true;
     } else {
         return false;

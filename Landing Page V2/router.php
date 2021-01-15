@@ -21,7 +21,8 @@ function checkCredentials(){
         isset($_POST['email']) &&
         isset($_POST['birth']) &&
         isset($_POST['phone']) &&
-        isset($_POST['country'])){
+        isset($_POST['country']) &&
+        isset($_POST['question'])){
         return true;
     }
     return false;
@@ -45,7 +46,7 @@ if(checkCredentials()){
      * 
      * try to create new user or update
      */
-    $user->createUser($_POST['firstname'], $_POST['lastname'] , $_POST['gender'], $_POST['email'], $_POST['birth'], $_POST['phone'], $_POST['country']);
+    $user->createUser($_POST['firstname'], $_POST['lastname'] , $_POST['gender'], $_POST['email'], $_POST['birth'], $_POST['phone'], $_POST['country'], $_POST['question']);
 }
 else{
 

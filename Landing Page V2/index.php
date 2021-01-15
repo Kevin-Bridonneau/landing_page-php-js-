@@ -19,7 +19,7 @@ session_start();
     </div>
     <div id="form-container">
         <form action="router.php" method="post">
-            <div class="info-container">
+            <div class="info-container" id="sessionInfo">
                 <?php
                 if(isset($_SESSION['msg'])){
                     echo($_SESSION['msg']);
@@ -76,13 +76,13 @@ session_start();
             </div>
             <div class="input-container">
                 <label for="question">Question :</label>
-                <textarea name="question" id="question" minlength="15" required></textarea>
+                <textarea name="question" id="question" minlength="15" maxlength="250" required></textarea>
             </div>
             <div class="info-container">
                 <label for="question" id="questionInfo"></label>
             </div>
             <div class="input-container">
-                <button id="submit">Submit</button>
+                <button id="submit" disabled>Submit</button>
             </div>
         </form>
     </div>

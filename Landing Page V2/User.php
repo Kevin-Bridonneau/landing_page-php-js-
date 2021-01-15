@@ -29,7 +29,7 @@ class User{
      * 
      *  create or update one user if credential are comform and there was not any registering for the last 24hours
      */
-    function createUser($firstname, $lastname, $type, $email, $birth, $phone, $country){
+    function createUser($firstname, $lastname, $type, $email, $birth, $phone, $country, $question){
         /**
          * Get CLIENT IP
          */
@@ -92,6 +92,15 @@ class User{
             exit();
         }
 
+        if(!$this->validateQuestion($question)){
+            session_destroy();
+            session_start();
+            $_SESSION['msg'] =  "Error : invalid question.";
+            header('Status: 400 invalid question ', false, 400);      
+            header('Location: index.php');
+            exit();
+        }
+
 
         /**
          * 
@@ -101,8 +110,13 @@ class User{
         $u = $this->userExist($email);
         if($u != NULL){
             $u++;
-            $sql = "UPDATE users SET updateAt = NOW(),counter = $u WHERE email = '$email'";
-            $db->exec($sql);
+            $sql = "UPDATE users SET updateAt = NOW(),counter = :counter WHERE email = '?";
+            /**
+             * 
+             * Secure the bdd and start update
+             */
+            $prep = $db->prepare($sql);
+            $prep->execute(array($email));
             session_destroy();
             session_start();
             $_SESSION['msg'] =  'User '.$firstname.' '.$lastname.' Updated !';
@@ -113,11 +127,20 @@ class User{
 
         /**
          * 
-         * if not exist create new user
+         * Secure the bdd and start create user
          */
-        $sql = "INSERT INTO users (firstname, lastname,type, email, birth, phone, country, IP, creatAt, updateAt,counter)
-                VALUE ('$firstname','$lastname','$type', '$email','$birth', '$phone','$country','$ip',NOW(),NOW(),0)";
-        $db->exec($sql);
+        $sql = "INSERT INTO users (firstname, lastname,type, email, birth, phone, country, IP, creatAt, updateAt,counter,question)
+                VALUE (?,?,?, ?,'$birth', ?,?,'$ip',NOW(),NOW(),0,?)";
+        $prep = $db->prepare($sql);
+        $prep->execute(array(
+        $firstname,
+        $lastname,
+        $type,
+        $email,
+        $phone,
+        $country,
+        $question,
+        ));
 
         session_destroy();
         session_start();
@@ -200,6 +223,13 @@ class User{
             return false;
         }
         return true;
+    }
+
+    function validateQuestion($question){
+        if(strlen($question) >= 15 && strlen($question) <= 250 ){
+            return true;
+        }
+        return false;
     }
   
 }
